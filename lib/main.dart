@@ -61,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     items.clear();
                     duplicateItems.add(valueText);
                     items.addAll(duplicateItems);
-
                     Navigator.pop(context);
                   });
                 },
@@ -141,6 +140,16 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(items[index]),
+                  trailing: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        duplicateItems.remove(items[index]);
+                        items.clear();
+                        items.addAll(duplicateItems);
+                      });
+                    },
+                    icon: const Icon(Icons.delete),
+                  ),
                 );
               },
             ),
