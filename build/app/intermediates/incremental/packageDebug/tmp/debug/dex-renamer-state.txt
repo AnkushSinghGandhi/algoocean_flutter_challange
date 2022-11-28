@@ -1,0 +1,4 @@
+#Mon Nov 28 23:26:03 IST 2022
+base.0=/home/ankush/Downloads/algoocean_flutter_challange/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
