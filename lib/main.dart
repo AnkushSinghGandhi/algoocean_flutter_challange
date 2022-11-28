@@ -45,6 +45,29 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  void cityFilterSearch(String query) {
+    List<String> dummySearchList = <String>[];
+    dummySearchList.addAll(duplicateItems);
+    if (query.isNotEmpty) {
+      List<String> dummyListData = <String>[];
+      for (var item in dummySearchList) {
+        if (item.contains(query)) {
+          dummyListData.add(item);
+        }
+      }
+      setState(() {
+        items.clear();
+        items.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        items.clear();
+        items.addAll(duplicateItems);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                cityFilterSearch(value);
+              },
               controller: searchController,
               decoration: const InputDecoration(
                 labelText: "Search",
