@@ -28,7 +28,50 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
+  TextEditingController addCitiesController = TextEditingController();
 
+  Future<void> _cityInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Enter City'),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  valueText = value;
+                });
+              },
+              controller: addCitiesController,
+              decoration: const InputDecoration(hintText: "Enter City"),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              TextButton(
+                child: const Text('Ok'),
+                onPressed: () {
+                  setState(() {
+                    items.clear();
+                    duplicateItems.add(valueText);
+                    items.addAll(duplicateItems);
+
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  late String valueText;
   final duplicateItems = [
     'ajmer',
     'kota',
@@ -103,6 +146,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _cityInputDialog(context);
+        },
+        tooltip: 'Add Cities',
+        child: const Icon(Icons.add),
       ),
     );
   }
